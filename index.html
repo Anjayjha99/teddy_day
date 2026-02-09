@@ -12,43 +12,45 @@ padding:0;
 height:100vh;
 display:flex;
 flex-direction:column;
-justify-content:space-between;
+justify-content:center;
 align-items:center;
 background:linear-gradient(to bottom,#f8e4ea,#f3c9d7);
 font-family:Georgia,serif;
 overflow:hidden;
 text-align:center;
+position:relative;
 }
 
-/* TEXT */
+/* MESSAGE */
 .message{
-margin-top:30px;
-font-size:22px;
+font-size:24px;
 color:#6b2c2c;
-padding:0 20px;
+padding:0 25px;
+margin-bottom:20px;
 }
 
-/* TEDDY CONTAINER */
+/* TEDDY WRAPPER */
 .teddy-wrapper{
 position:relative;
-flex:1;
 display:flex;
 justify-content:center;
 align-items:center;
+flex:1;
 }
 
 /* TEDDY */
 .teddy{
 position:relative;
-width:160px;
-height:200px;
+width:140px;
+height:180px;
 transition:0.5s ease;
+z-index:2;
 }
 
 /* HEAD */
 .head{
-width:120px;
-height:120px;
+width:110px;
+height:110px;
 background:#9b6428;
 border-radius:50%;
 position:absolute;
@@ -59,15 +61,15 @@ transform:translateX(-50%);
 
 /* EARS */
 .ear{
-width:60px;
-height:60px;
+width:55px;
+height:55px;
 background:#9b6428;
 border-radius:50%;
 position:absolute;
-top:-25px;
+top:-20px;
 }
-.ear.left{left:-10px;}
-.ear.right{right:-10px;}
+.ear.left{left:-8px;}
+.ear.right{right:-8px;}
 
 /* EYES */
 .eye{
@@ -76,11 +78,11 @@ height:16px;
 background:#1f1f1f;
 border-radius:50%;
 position:absolute;
-top:45px;
-transition:0.3s;
+top:40px;
+transition:0.2s;
 }
-.eye.left{left:30px;}
-.eye.right{right:30px;}
+.eye.left{left:25px;}
+.eye.right{right:25px;}
 
 /* CLOSED EYES */
 .closed{
@@ -90,20 +92,20 @@ border-radius:4px;
 
 /* NOSE */
 .nose{
-width:24px;
-height:24px;
+width:22px;
+height:22px;
 background:#6b2c2c;
 border-radius:50%;
 position:absolute;
-top:65px;
+top:60px;
 left:50%;
 transform:translateX(-50%);
 }
 
 /* BODY */
 .body{
-width:140px;
-height:150px;
+width:130px;
+height:140px;
 background:#9b6428;
 border-radius:50%;
 position:absolute;
@@ -114,42 +116,46 @@ transform:translateX(-50%);
 
 /* ARMS */
 .arm{
-width:45px;
-height:100px;
+width:40px;
+height:90px;
 background:#9b6428;
 border-radius:50px;
 position:absolute;
-top:70px;
+top:65px;
 transition:0.4s;
 }
-.arm.left{left:-35px;}
-.arm.right{right:-35px;}
+.arm.left{left:-30px;}
+.arm.right{right:-30px;}
 
-/* HUG */
+/* HUG ANIMATION */
 .hug{
-transform:scale(1.25);
+transform:scale(1.2);
 }
 .hug .arm.left{
-transform:rotate(-40deg);
-left:-15px;
+transform:rotate(-45deg);
+left:-10px;
 }
 .hug .arm.right{
-transform:rotate(40deg);
-right:-15px;
+transform:rotate(45deg);
+right:-10px;
 }
 
 /* BUTTONS */
 .buttons{
-margin-bottom:40px;
+position:absolute;
+bottom:30px;
+display:flex;
+gap:15px;
+z-index:3;
 }
 
 button{
-padding:12px 25px;
+padding:12px 22px;
 border:none;
 border-radius:25px;
 font-size:16px;
-margin:8px;
 cursor:pointer;
+transition:0.3s;
 }
 
 .yes{
@@ -161,12 +167,22 @@ color:white;
 background:#e5e5e5;
 color:#444;
 position:relative;
+z-index:1;
 }
 
-/* RESPONSIVE */
-@media(max-height:650px){
-.teddy{transform:scale(0.9);}
-.message{font-size:18px;}
+/* MOBILE FIX */
+@media(max-width:480px){
+.teddy{
+width:115px;
+height:150px;
+}
+.message{
+font-size:20px;
+margin-top:15px;
+}
+.buttons{
+bottom:20px;
+}
 }
 </style>
 </head>
@@ -204,21 +220,30 @@ This little teddy is waiting for someone special... 🧸
 <script>
 let eyeMovement = true;
 
+/* EYE FOLLOW */
 document.addEventListener("mousemove",function(e){
 if(!eyeMovement) return;
 
 let eyes=document.querySelectorAll(".eye");
 eyes.forEach(eye=>{
-let x=(e.clientX/window.innerWidth -0.5)*8;
-let y=(e.clientY/window.innerHeight -0.5)*8;
+let x=(e.clientX/window.innerWidth -0.5)*6;
+let y=(e.clientY/window.innerHeight -0.5)*6;
 eye.style.transform=`translate(${x}px,${y}px)`;
 });
 });
 
+/* MAYBE BUTTON */
 function removeMaybe(){
-document.querySelector(".maybe").style.display="none";
+let maybeBtn=document.querySelector(".maybe");
+maybeBtn.style.zIndex="0";
+maybeBtn.style.transform="scale(0.8)";
+maybeBtn.style.opacity="0";
+setTimeout(()=>{
+maybeBtn.style.display="none";
+},300);
 }
 
+/* YES BUTTON */
 function acceptLove(){
 eyeMovement=false;
 
@@ -237,5 +262,4 @@ document.getElementById("buttons").innerHTML=
 </script>
 
 </body>
-    </html>
-    
+</html>
