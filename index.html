@@ -51,7 +51,6 @@ h1 {
     position: absolute;
     top: 0;
     left: 30px;
-    /* ensure stacking context for child elements */
 }
 
 /* MUZZLE */
@@ -104,8 +103,8 @@ h1 {
 
 /* HANDS */
 .hand {
-    width: 40px;
-    height: 80px;
+    width: 45px;
+    height: 70px;
     background: var(--teddy-brown);
     border-radius: 30px;
     position: absolute;
@@ -125,7 +124,7 @@ h1 {
     background: var(--teddy-muzzle);
     border-radius: 50%;
     left: 14px;
-    top: 60px;
+    top: 55px;
 }
 
 /* EYES */
@@ -191,14 +190,17 @@ button {
 }
 
 /* HUG STATE */
+/* horizontal arms, slightly lower, hugging chest */
 .hug .left-hand {
-    transform: rotate(40deg);
-    left: 30px;
+    transform: rotate(0deg); /* horizontal */
+    left: 5px;               /* closer to body */
+    top: 130px;              /* a bit lower to meet chest */
 }
 
 .hug .right-hand {
-    transform: rotate(-40deg);
-    right: 30px;
+    transform: rotate(0deg); /* horizontal */
+    right: 5px;              /* closer to body */
+    top: 130px;              /* a bit lower to meet chest */
 }
 
 .hug .eye {
@@ -214,6 +216,7 @@ button {
     transform: scale(1.1);
 }
 
+/* single final message area */
 .message {
     margin-top: 20px;
     font-size: 22px;
@@ -251,13 +254,8 @@ button {
     <div class="hand right-hand"></div>
 </div>
 
-<div class="message" id="finalMsg">
-    Yayyy! Now you can never escape my hugs 🧸💕
-</div>
-
-<div class="message" id="maybeMsg">
-    I’m already yours 💖
-</div>
+<!-- single message div reused for final or maybe response -->
+<div class="message" id="responseMsg"></div>
 
 <div class="buttons" id="btnArea">
     <button class="yes-btn" onclick="accept()">Of course ❤️</button>
@@ -266,23 +264,19 @@ button {
 
 <script>
 function maybe() {
-    // make teddy hug and show a sweet message
     const teddy = document.getElementById("teddy");
     teddy.classList.add("hug");
 
     // hide buttons
-    const btnArea = document.getElementById("btnArea");
-    btnArea.style.display = "none";
+    document.getElementById("btnArea").style.display = "none";
 
-    // show maybe-specific message
-    const maybeMsg = document.getElementById("maybeMsg");
-    maybeMsg.style.display = "block";
+    // show message
+    const msg = document.getElementById("responseMsg");
+    msg.textContent = "Sorry, can’t choose; I’m already yours 💖";
+    msg.style.display = "block";
 
     // update title
     document.getElementById("title").textContent = "I know you’re here already...";
-
-    // optional: also ensure final hug message hidden
-    document.getElementById("finalMsg").style.display = "none";
 }
 
 function accept() {
@@ -292,9 +286,10 @@ function accept() {
     // hide buttons
     document.getElementById("btnArea").style.display = "none";
 
-    // show final message
-    const final = document.getElementById("finalMsg");
-    final.style.display = "block";
+    // show message
+    const msg = document.getElementById("responseMsg");
+    msg.textContent = "Yayyy! Now you can never escape my hugs 🧸💕";
+    msg.style.display = "block";
 
     // update title
     document.getElementById("title").textContent = "Yayyy! Now you can never escape my hugs 🧸💕";
