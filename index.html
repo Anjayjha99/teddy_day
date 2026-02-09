@@ -5,17 +5,30 @@
 <title>Teddy Day 🧸</title>
 
 <style>
+:root {
+    /* colors as variables for easy tweaking */
+    --teddy-brown: #a35d00;
+    --teddy-muzzle: #d28c45;
+    --teddy-nose: #3a1f00;
+    --blush-red: #e60000;
+    --btn-pink: #ff2f7d;
+    --btn-gray: #ddd;
+    --text-dark: #7a2e2e;
+    --bg-start: #f6d5db;
+    --bg-end: #e9a9b8;
+}
+
 body {
     margin: 0;
     font-family: Georgia, serif;
     text-align: center;
-    background: linear-gradient(to bottom, #f6d5db, #e9a9b8);
+    background: linear-gradient(to bottom, var(--bg-start), var(--bg-end));
     overflow: hidden;
 }
 
 h1 {
     margin-top: 40px;
-    color: #7a2e2e;
+    color: var(--text-dark);
     padding: 0 20px;
     font-size: 26px;
 }
@@ -33,18 +46,40 @@ h1 {
 .head {
     width: 120px;
     height: 110px;
-    background: #a35d00;
+    background: var(--teddy-brown);
     border-radius: 50%;
     position: absolute;
     top: 0;
     left: 30px;
 }
 
+/* MUZZLE */
+.muzzle {
+    width: 60px;
+    height: 40px;
+    background: var(--teddy-muzzle);
+    border-radius: 50%;
+    position: absolute;
+    bottom: 15px;
+    left: 30px; /* center inside head */
+}
+
+/* NOSE */
+.nose {
+    width: 12px;
+    height: 8px;
+    background: var(--teddy-nose);
+    border-radius: 50%;
+    position: absolute;
+    bottom: 32px;
+    left: 54px; /* roughly center on muzzle */
+}
+
 /* EARS */
 .ear {
     width: 60px;
     height: 60px;
-    background: #a35d00;
+    background: var(--teddy-brown);
     border-radius: 50%;
     position: absolute;
     top: -20px;
@@ -55,42 +90,54 @@ h1 {
 
 /* BODY */
 .body {
-    width: 130px;
-    height: 150px;
-    background: #a35d00;
+    width: 120px;   /* a bit narrower */
+    height: 140px;
+    background: var(--teddy-brown);
     border-radius: 50%;
     position: absolute;
-    top: 90px;
-    left: 25px;
+    top: 95px;
+    left: 30px;
 }
 
 /* HANDS */
 .hand {
-    width: 45px;
-    height: 90px;
-    background: #a35d00;
+    width: 40px;
+    height: 80px;
+    background: var(--teddy-brown);
     border-radius: 30px;
     position: absolute;
     top: 110px;
     transition: all 0.5s ease;
 }
 
-.left-hand { left: -10px; }
-.right-hand { right: -10px; }
+.left-hand { left: -5px; }
+.right-hand { right: -5px; }
+
+/* small paw hint on hands */
+.hand::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 6px;
+    background: var(--teddy-muzzle);
+    border-radius: 50%;
+    left: 14px;
+    top: 60px;
+}
 
 /* EYES */
 .eye {
-    width: 18px;
-    height: 18px;
+    width: 20px;   /* slightly larger */
+    height: 20px;
     background: #222;
     border-radius: 50%;
     position: absolute;
-    top: 40px;
+    top: 35px;     /* a touch higher */
     transition: all 0.4s ease;
 }
 
-.left-eye { left: 40px; }
-.right-eye { right: 40px; }
+.left-eye { left: 35px; }
+.right-eye { right: 35px; }
 
 /* CLOSED EYES */
 .closed {
@@ -102,7 +149,7 @@ h1 {
 .blush {
     width: 28px;
     height: 18px;
-    background: pink;
+    background: var(--blush-red);   /* now red */
     border-radius: 50%;
     position: absolute;
     top: 65px;
@@ -130,12 +177,12 @@ button {
 }
 
 .yes-btn {
-    background: #ff2f7d;
+    background: var(--btn-pink);
     color: white;
 }
 
 .no-btn {
-    background: #ddd;
+    background: var(--btn-gray);
 }
 
 /* HUG STATE */
@@ -165,7 +212,7 @@ button {
 .message {
     margin-top: 20px;
     font-size: 22px;
-    color: #7a2e2e;
+    color: var(--text-dark);
     display: none;
 }
 </style>
@@ -185,6 +232,10 @@ button {
 
         <div class="blush left-blush"></div>
         <div class="blush right-blush"></div>
+
+        <!-- added muzzle and nose -->
+        <div class="muzzle"></div>
+        <div class="nose"></div>
     </div>
 
     <div class="body"></div>
