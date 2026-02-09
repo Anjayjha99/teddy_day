@@ -1,263 +1,224 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Teddy Day 🧸</title>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+body {
+    margin: 0;
+    font-family: Georgia, serif;
+    text-align: center;
+    background: linear-gradient(to bottom, #f6d5db, #e9a9b8);
+    overflow: hidden;
 }
 
-body{
-height:100vh;
-background:linear-gradient(to bottom,#f6d9df,#eab8c5);
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:space-between;
-font-family:Georgia,serif;
-overflow:hidden;
+h1 {
+    margin-top: 40px;
+    color: #7a2e2e;
+    padding: 0 20px;
+    font-size: 26px;
 }
 
-/* Message */
-.message{
-margin-top:35px;
-text-align:center;
-font-size:22px;
-color:#7a2f2f;
-padding:0 20px;
-min-height:70px;
-transition:0.3s;
+/* TEDDY CONTAINER */
+.teddy {
+    position: relative;
+    width: 180px;
+    height: 260px;
+    margin: 40px auto;
+    transition: transform 0.6s ease;
 }
 
-/* Teddy */
-.teddy{
-position:relative;
-width:150px;
-height:200px;
-margin-top:10px;
-transition:0.4s ease;
+/* HEAD */
+.head {
+    width: 120px;
+    height: 110px;
+    background: #a35d00;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 30px;
 }
 
-/* Head */
-.head{
-width:100px;
-height:95px;
-background:#a86418;
-border-radius:50%;
-position:absolute;
-top:0;
-left:50%;
-transform:translateX(-50%);
+/* EARS */
+.ear {
+    width: 60px;
+    height: 60px;
+    background: #a35d00;
+    border-radius: 50%;
+    position: absolute;
+    top: -20px;
 }
 
-/* Ears */
-.ear{
-width:45px;
-height:45px;
-background:#a86418;
-border-radius:50%;
-position:absolute;
-top:-20px;
+.left-ear { left: 10px; }
+.right-ear { right: 10px; }
+
+/* BODY */
+.body {
+    width: 130px;
+    height: 150px;
+    background: #a35d00;
+    border-radius: 50%;
+    position: absolute;
+    top: 90px;
+    left: 25px;
 }
 
-.ear.left{ left:-8px; }
-.ear.right{ right:-8px; }
-
-/* Body */
-.body{
-width:110px;
-height:125px;
-background:#a86418;
-border-radius:50%;
-position:absolute;
-bottom:0;
-left:50%;
-transform:translateX(-50%);
+/* HANDS */
+.hand {
+    width: 45px;
+    height: 90px;
+    background: #a35d00;
+    border-radius: 30px;
+    position: absolute;
+    top: 110px;
+    transition: all 0.5s ease;
 }
 
-/* Arms */
-.arm{
-width:40px;
-height:85px;
-background:#a86418;
-border-radius:40px;
-position:absolute;
-top:75px;
-transition:0.4s ease;
+.left-hand { left: -10px; }
+.right-hand { right: -10px; }
+
+/* EYES */
+.eye {
+    width: 18px;
+    height: 18px;
+    background: #222;
+    border-radius: 50%;
+    position: absolute;
+    top: 40px;
+    transition: all 0.4s ease;
 }
 
-.arm.left{ left:-38px; }
-.arm.right{ right:-38px; }
+.left-eye { left: 40px; }
+.right-eye { right: 40px; }
 
-/* Eyes */
-.eye{
-width:14px;
-height:14px;
-background:#222;
-border-radius:50%;
-position:absolute;
-top:38px;
-transition:0.3s;
+/* CLOSED EYES */
+.closed {
+    height: 6px;
+    border-radius: 10px;
 }
 
-.eye.left{ left:30px; }
-.eye.right{ right:30px; }
-
-/* Blush */
-.blush{
-width:20px;
-height:12px;
-background:#ff8aa5;
-border-radius:20px;
-position:absolute;
-top:55px;
+/* BLUSH */
+.blush {
+    width: 28px;
+    height: 18px;
+    background: pink;
+    border-radius: 50%;
+    position: absolute;
+    top: 65px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
-.blush.left{ left:18px; }
-.blush.right{ right:18px; }
+.left-blush { left: 20px; }
+.right-blush { right: 20px; }
 
-/* Nose */
-.nose{
-width:18px;
-height:18px;
-background:#7a2f2f;
-border-radius:50%;
-position:absolute;
-top:55px;
-left:50%;
-transform:translateX(-50%);
+/* BUTTONS */
+.buttons {
+    position: fixed;
+    bottom: 40px;
+    width: 100%;
 }
 
-/* Buttons */
-.buttons{
-display:flex;
-gap:18px;
-margin-bottom:40px;
+button {
+    padding: 14px 30px;
+    margin: 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
 }
 
-button{
-padding:12px 26px;
-border:none;
-border-radius:30px;
-font-size:16px;
-cursor:pointer;
-transition:0.2s;
+.yes-btn {
+    background: #ff2f7d;
+    color: white;
 }
 
-.yes{
-background:#ff3f86;
-color:white;
+.no-btn {
+    background: #ddd;
 }
 
-.maybe{
-background:#ddd;
+/* HUG STATE */
+.hug .left-hand {
+    transform: rotate(40deg);
+    left: 30px;
 }
 
-/* Hug animation */
-.hug{
-transform:scale(1.15);
+.hug .right-hand {
+    transform: rotate(-40deg);
+    right: 30px;
 }
 
-.hug .arm.left{
-transform:translateX(40px) rotate(40deg);
+.hug .eye {
+    height: 6px;
+    border-radius: 10px;
 }
 
-.hug .arm.right{
-transform:translateX(-40px) rotate(-40deg);
+.hug .blush {
+    opacity: 1;
 }
 
-.hug .eye{
-height:6px;
-border-radius:10px;
+.hug {
+    transform: scale(1.1);
 }
 
-.hug .blush{
-background:#ff6f9c;
-}
-
-/* Mobile adjustments */
-@media(max-width:480px){
-
-.message{
-font-size:20px;
-margin-top:30px;
-}
-
-.teddy{
-width:135px;
-height:180px;
-}
-
-.head{
-width:95px;
-height:85px;
-}
-
-.body{
-width:100px;
-height:115px;
-}
-
-.arm{
-height:75px;
-}
-
+.message {
+    margin-top: 20px;
+    font-size: 22px;
+    color: #7a2e2e;
+    display: none;
 }
 </style>
 </head>
 
 <body>
 
-<div class="message" id="text">
-This little teddy is waiting for someone special... 🧸
-</div>
+<h1 id="title">This little teddy is waiting for someone special... 🧸</h1>
 
 <div class="teddy" id="teddy">
+    <div class="ear left-ear"></div>
+    <div class="ear right-ear"></div>
 
-<div class="head">
-<div class="ear left"></div>
-<div class="ear right"></div>
-<div class="eye left"></div>
-<div class="eye right"></div>
-<div class="blush left"></div>
-<div class="blush right"></div>
-<div class="nose"></div>
+    <div class="head">
+        <div class="eye left-eye"></div>
+        <div class="eye right-eye"></div>
+
+        <div class="blush left-blush"></div>
+        <div class="blush right-blush"></div>
+    </div>
+
+    <div class="body"></div>
+
+    <div class="hand left-hand"></div>
+    <div class="hand right-hand"></div>
 </div>
 
-<div class="body"></div>
-<div class="arm left"></div>
-<div class="arm right"></div>
-
+<div class="message" id="finalMsg">
+    Yayyy! Now you can never escape my hugs 🧸💕
 </div>
 
-<div class="buttons" id="buttons">
-<button class="yes" onclick="accept()">Of course ❤️</button>
-<button class="maybe" onclick="maybe()">Maybe...</button>
+<div class="buttons">
+    <button class="yes-btn" onclick="accept()">Of course ❤️</button>
+    <button class="no-btn" onclick="moveNo(this)">Maybe...</button>
 </div>
 
 <script>
-function accept(){
-document.getElementById("text").innerHTML =
-"Yayyy! Now you can never escape my hugs 🧸💕";
-
-document.getElementById("teddy").classList.add("hug");
-
-document.getElementById("buttons").innerHTML =
-'<button class="yes">Forever Mine ❤️</button>';
+function moveNo(btn) {
+    btn.style.position = "absolute";
+    btn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+    btn.style.top = Math.random() * (window.innerHeight - 100) + "px";
 }
 
-function maybe(){
-let btn = document.querySelector(".maybe");
-btn.style.position="absolute";
-btn.style.zIndex="0";
-btn.style.transform="translateY(-60px)";
-btn.style.opacity="0";
-setTimeout(()=>btn.remove(),300);
+function accept() {
+    document.getElementById("teddy").classList.add("hug");
+
+    document.querySelector(".no-btn").style.display = "none";
+
+    document.getElementById("title").innerHTML =
+        "Yayyy! Now you can never escape my hugs 🧸💕";
+
+    document.querySelector(".yes-btn").innerHTML =
+        "Forever Mine ❤️";
 }
 </script>
 
