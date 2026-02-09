@@ -6,7 +6,7 @@
 
 <style>
 :root {
-    /* colors as variables for easy tweaking */
+    /* colors as variables for easier tweaks */
     --teddy-brown: #a35d00;
     --teddy-muzzle: #d28c45;
     --teddy-nose: #3a1f00;
@@ -51,6 +51,7 @@ h1 {
     position: absolute;
     top: 0;
     left: 30px;
+    /* ensure stacking context for child elements */
 }
 
 /* MUZZLE */
@@ -62,6 +63,7 @@ h1 {
     position: absolute;
     bottom: 15px;
     left: 30px; /* center inside head */
+    z-index: 2; /* on top of blush */
 }
 
 /* NOSE */
@@ -73,6 +75,7 @@ h1 {
     position: absolute;
     bottom: 32px;
     left: 54px; /* roughly center on muzzle */
+    z-index: 3; /* above everything */
 }
 
 /* EARS */
@@ -134,6 +137,7 @@ h1 {
     position: absolute;
     top: 35px;     /* a touch higher */
     transition: all 0.4s ease;
+    z-index: 3;    /* ensure eyes on top */
 }
 
 .left-eye { left: 35px; }
@@ -147,18 +151,19 @@ h1 {
 
 /* BLUSH */
 .blush {
-    width: 28px;
-    height: 18px;
+    width: 22px;   /* slightly smaller for hugging look */
+    height: 14px;
     background: var(--blush-red);   /* now red */
     border-radius: 50%;
     position: absolute;
-    top: 65px;
+    top: 60px;    /* adjusted a bit to sit nicely */
     opacity: 0;
     transition: opacity 0.4s ease;
+    z-index: 1;   /* below muzzle and nose */
 }
 
-.left-blush { left: 20px; }
-.right-blush { right: 20px; }
+.left-blush { left: 25px; }
+.right-blush { right: 25px; }
 
 /* BUTTONS */
 .buttons {
@@ -227,13 +232,15 @@ button {
     <div class="ear right-ear"></div>
 
     <div class="head">
+        <!-- eyes -->
         <div class="eye left-eye"></div>
         <div class="eye right-eye"></div>
 
+        <!-- blush -->
         <div class="blush left-blush"></div>
         <div class="blush right-blush"></div>
 
-        <!-- added muzzle and nose -->
+        <!-- muzzle & nose -->
         <div class="muzzle"></div>
         <div class="nose"></div>
     </div>
@@ -248,28 +255,49 @@ button {
     Yayyy! Now you can never escape my hugs 🧸💕
 </div>
 
-<div class="buttons">
+<div class="message" id="maybeMsg">
+    I’m already yours 💖
+</div>
+
+<div class="buttons" id="btnArea">
     <button class="yes-btn" onclick="accept()">Of course ❤️</button>
-    <button class="no-btn" onclick="moveNo(this)">Maybe...</button>
+    <button class="no-btn" onclick="maybe()">Maybe...</button>
 </div>
 
 <script>
-function moveNo(btn) {
-    btn.style.position = "absolute";
-    btn.style.left = Math.random() * (window.innerWidth - 100) + "px";
-    btn.style.top = Math.random() * (window.innerHeight - 100) + "px";
+function maybe() {
+    // make teddy hug and show a sweet message
+    const teddy = document.getElementById("teddy");
+    teddy.classList.add("hug");
+
+    // hide buttons
+    const btnArea = document.getElementById("btnArea");
+    btnArea.style.display = "none";
+
+    // show maybe-specific message
+    const maybeMsg = document.getElementById("maybeMsg");
+    maybeMsg.style.display = "block";
+
+    // update title
+    document.getElementById("title").textContent = "I know you’re here already...";
+
+    // optional: also ensure final hug message hidden
+    document.getElementById("finalMsg").style.display = "none";
 }
 
 function accept() {
-    document.getElementById("teddy").classList.add("hug");
+    const teddy = document.getElementById("teddy");
+    teddy.classList.add("hug");
 
-    document.querySelector(".no-btn").style.display = "none";
+    // hide buttons
+    document.getElementById("btnArea").style.display = "none";
 
-    document.getElementById("title").innerHTML =
-        "Yayyy! Now you can never escape my hugs 🧸💕";
+    // show final message
+    const final = document.getElementById("finalMsg");
+    final.style.display = "block";
 
-    document.querySelector(".yes-btn").innerHTML =
-        "Forever Mine ❤️";
+    // update title
+    document.getElementById("title").textContent = "Yayyy! Now you can never escape my hugs 🧸💕";
 }
 </script>
 
