@@ -110,6 +110,8 @@ h1 {
     position: absolute;
     top: 110px;
     transition: all 0.5s ease;
+    /* rotate around top, like a shoulder pivot */
+    transform-origin: top center;
 }
 
 .left-hand { left: -5px; }
@@ -190,17 +192,18 @@ button {
 }
 
 /* HUG STATE */
-/* vertical arms hugging body close to sides */
+/* arms raised and tilted inward, like ready to hug */
 .hug .left-hand {
-    transform: rotate(0deg);   /* keep vertical */
-    left: -5px;                /* hugging side */
-    top: 120px;                /* slightly lower to align with body */
+    transform: rotate(-50deg); /* tilt toward teddy */
+    /* keep near shoulder level */
+    left: -5px;
+    top: 100px;
 }
 
 .hug .right-hand {
-    transform: rotate(0deg);   /* keep vertical */
-    right: -5px;               /* hugging side */
-    top: 120px;
+    transform: rotate(50deg); /* tilt toward teddy */
+    right: -5px;
+    top: 100px;
 }
 
 .hug .eye {
@@ -264,38 +267,24 @@ button {
 
 <script>
 function maybe() {
-    const teddy = document.getElementById("teddy");
-    teddy.classList.add("hug");
-
-    // hide only Maybe button, keep Of course
+    // Hide the Maybe button only; teddy does NOT hug or respond
     const maybeBtn = document.querySelector(".no-btn");
     maybeBtn.style.display = "none";
 
-    // show message
+    // Optionally show a small note so user knows only yes works
     const msg = document.getElementById("responseMsg");
-    msg.textContent = "Sorry, can’t choose; I’m already yours 💖";
+    msg.textContent = "Only yes is accepted 🙂";
     msg.style.display = "block";
-
-    // update title
-    document.getElementById("title").textContent = "I know you’re here already...";
+    // Title remains same or you can adjust
 }
 
 function accept() {
     const teddy = document.getElementById("teddy");
     teddy.classList.add("hug");
 
-    // hide both buttons after accept (optional)
+    // Hide both buttons – final state
     document.getElementById("btnArea").style.display = "none";
 
-    // show message
-    const msg = document.getElementById("responseMsg");
-    msg.textContent = "Yayyy! Now you can never escape my hugs 🧸💕";
-    msg.style.display = "block";
-
-    // update title
-    document.getElementById("title").textContent = "Yayyy! Now you can never escape my hugs 🧸💕";
-}
-</script>
-
-</body>
-</html>
+    // Show final message
+    const msg = document.getEle
+    
